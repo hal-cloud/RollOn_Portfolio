@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="shader">
+      <UniqueIdentifier>{e5679421-6c32-4cbe-99be-c7d066331991}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Player">
+      <UniqueIdentifier>{d5bb384a-4e85-4cfa-9563-c5d2cc14a070}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Input">
+      <UniqueIdentifier>{75e67075-7e01-4d79-a309-7549b4e7170f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets">
+      <UniqueIdentifier>{02dd9966-5a8e-47b6-ae09-db2736758c11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets\Sound">
+      <UniqueIdentifier>{1e05bdf0-6ac3-4702-8ede-59a9c3f50d85}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets\Texture">
+      <UniqueIdentifier>{49f984ce-f29b-4e0a-9a06-8dcc87ad60f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Atlas">
+      <UniqueIdentifier>{7e4f2701-c167-4550-b3f8-09de27c6a2ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component">
+      <UniqueIdentifier>{87a0f8eb-9d10-4c16-98e8-ca7610f00124}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene">
+      <UniqueIdentifier>{6f5733f1-ebcc-419b-bbc2-7b822f8518e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Game">
+      <UniqueIdentifier>{694960cc-b39f-415e-935c-05af8d4c7f31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\SongScene">
+      <UniqueIdentifier>{f7ee4022-4920-4df7-a128-a81bf3be8c9e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RhythmGameSystem">
+      <UniqueIdentifier>{77cd85f8-11d7-4168-aafe-45ef9b90797f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RhythmGameSystem\Note">
+      <UniqueIdentifier>{4474233b-a599-4111-ade8-7186c8ca2236}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RhythmGameSystem\Judge">
+      <UniqueIdentifier>{d424bcb4-9972-4a67-b4e1-56a93d2dd41b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RhythmGameSystem\Effect">
+      <UniqueIdentifier>{b16e41bf-c369-4edd-b1e9-ad4a39dc8414}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RhythmGameSystem\Beat">
+      <UniqueIdentifier>{5aa3c320-a41f-438a-ae4c-56cf98908c06}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RhythmGameSystem\GameScore">
+      <UniqueIdentifier>{8e34b1e0-dc16-47c0-a438-82e065b77b6e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RhythmGameSystem\Score">
+      <UniqueIdentifier>{45e85fb3-1b02-42ed-a579-0d17c7a3b085}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RhythmGameSystem\Score\Read">
+      <UniqueIdentifier>{87f9ae41-4c03-4723-8952-b243c81ef24d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RhythmGameSystem\Effect\Paticle">
+      <UniqueIdentifier>{d06ca329-39e8-4f34-b274-6aaf5a2937bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソースファイル">
+      <UniqueIdentifier>{5ab43f88-adf5-4eb6-984e-86ef02f1727d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダーファイル">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="player.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="input.cpp">
+      <Filter>Input</Filter>
+    </ClCompile>
+    <ClCompile Include="xinputButton.cpp">
+      <Filter>Input</Filter>
+    </ClCompile>
+    <ClCompile Include="soundManager.cpp">
+      <Filter>Assets\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="soundLoader.cpp">
+      <Filter>Assets\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="soundPlayer.cpp">
+      <Filter>Assets\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="texture.cpp">
+      <Filter>Assets\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="scene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="title.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="result.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="atlas.cpp">
+      <Filter>Atlas</Filter>
+    </ClCompile>
+    <ClCompile Include="number.cpp">
+      <Filter>Atlas</Filter>
+    </ClCompile>
+    <ClCompile Include="loading.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="lane.cpp">
+      <Filter>RhythmGameSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="note.cpp">
+      <Filter>RhythmGameSystem\Note</Filter>
+    </ClCompile>
+    <ClCompile Include="noteManager.cpp">
+      <Filter>RhythmGameSystem\Note</Filter>
+    </ClCompile>
+    <ClCompile Include="scoreReader.cpp">
+      <Filter>RhythmGameSystem\Score\Read</Filter>
+    </ClCompile>
+    <ClCompile Include="beatManager.cpp">
+      <Filter>RhythmGameSystem\Beat</Filter>
+    </ClCompile>
+    <ClCompile Include="beat.cpp">
+      <Filter>RhythmGameSystem\Beat</Filter>
+    </ClCompile>
+    <ClCompile Include="effect.cpp">
+      <Filter>RhythmGameSystem\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="tapEffect.cpp">
+      <Filter>RhythmGameSystem\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="judgeLine.cpp">
+      <Filter>RhythmGameSystem\Judge</Filter>
+    </ClCompile>
+    <ClCompile Include="gameScore.cpp">
+      <Filter>RhythmGameSystem\GameScore</Filter>
+    </ClCompile>
+    <ClCompile Include="score.cpp">
+      <Filter>RhythmGameSystem\Score</Filter>
+    </ClCompile>
+    <ClCompile Include="playerInput.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="gameField.cpp">
+      <Filter>RhythmGameSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="laneEffect.cpp">
+      <Filter>RhythmGameSystem\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="gameScoreVisual.cpp">
+      <Filter>RhythmGameSystem\GameScore</Filter>
+    </ClCompile>
+    <ClCompile Include="game.cpp">
+      <Filter>Scene\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="songCarousel.cpp">
+      <Filter>Scene\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="difficultySelector.cpp">
+      <Filter>Scene\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="difficultyStars.cpp">
+      <Filter>Scene\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="judgeEffect.cpp">
+      <Filter>RhythmGameSystem\Judge</Filter>
+    </ClCompile>
+    <ClCompile Include="songScene.cpp">
+      <Filter>Scene\SongScene</Filter>
+    </ClCompile>
+    <ClCompile Include="gameParticle.cpp">
+      <Filter>RhythmGameSystem\Effect\Paticle</Filter>
+    </ClCompile>
+    <ClCompile Include="particleInstance.cpp">
+      <Filter>RhythmGameSystem\Effect\Paticle</Filter>
+    </ClCompile>
+    <ClCompile Include="particleBase.cpp">
+      <Filter>RhythmGameSystem\Effect\Paticle</Filter>
+    </ClCompile>
+    <ClCompile Include="camera.cpp">
+      <Filter>ソースファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="fade.cpp">
+      <Filter>ソースファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="field.cpp">
+      <Filter>ソースファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>ソースファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="manager.cpp">
+      <Filter>ソースファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="modelRenderer.cpp">
+      <Filter>ソースファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="polygon.cpp">
+      <Filter>ソースファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="renderer.cpp">
+      <Filter>ソースファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="sky.cpp">
+      <Filter>ソースファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="vector3.cpp">
+      <Filter>ソースファイル</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="main.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="manager.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="renderer.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="polygon.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectXTex.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="field.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="camera.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="gameObject.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="vector3.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="input.h">
+      <Filter>Input</Filter>
+    </ClInclude>
+    <ClInclude Include="xinputButton.h">
+      <Filter>Input</Filter>
+    </ClInclude>
+    <ClInclude Include="soundManager.h">
+      <Filter>Assets\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="soundLoader.h">
+      <Filter>Assets\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="soundPlayer.h">
+      <Filter>Assets\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="texture.h">
+      <Filter>Assets\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="player.h">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="scene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="title.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="result.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="sky.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="atlas.h">
+      <Filter>Atlas</Filter>
+    </ClInclude>
+    <ClInclude Include="number.h">
+      <Filter>Atlas</Filter>
+    </ClInclude>
+    <ClInclude Include="component.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="fade.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="loading.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="lane.h">
+      <Filter>RhythmGameSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="note.h">
+      <Filter>RhythmGameSystem\Note</Filter>
+    </ClInclude>
+    <ClInclude Include="noteManager.h">
+      <Filter>RhythmGameSystem\Note</Filter>
+    </ClInclude>
+    <ClInclude Include="scoreReader.h">
+      <Filter>RhythmGameSystem\Score\Read</Filter>
+    </ClInclude>
+    <ClInclude Include="beatManager.h">
+      <Filter>RhythmGameSystem\Beat</Filter>
+    </ClInclude>
+    <ClInclude Include="beat.h">
+      <Filter>RhythmGameSystem\Beat</Filter>
+    </ClInclude>
+    <ClInclude Include="effect.h">
+      <Filter>RhythmGameSystem\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="tapEffect.h">
+      <Filter>RhythmGameSystem\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="judgeLine.h">
+      <Filter>RhythmGameSystem\Judge</Filter>
+    </ClInclude>
+    <ClInclude Include="gameScore.h">
+      <Filter>RhythmGameSystem\GameScore</Filter>
+    </ClInclude>
+    <ClInclude Include="score.h">
+      <Filter>RhythmGameSystem\Score</Filter>
+    </ClInclude>
+    <ClInclude Include="json.hpp" />
+    <ClInclude Include="ontheNightRoad.h">
+      <Filter>Scene\SongScene</Filter>
+    </ClInclude>
+    <ClInclude Include="rollOn.h">
+      <Filter>Scene\SongScene</Filter>
+    </ClInclude>
+    <ClInclude Include="tutorial.h">
+      <Filter>Scene\SongScene</Filter>
+    </ClInclude>
+    <ClInclude Include="playerInput.h">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="gameField.h">
+      <Filter>RhythmGameSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="theFinal.h">
+      <Filter>Scene\SongScene</Filter>
+    </ClInclude>
+    <ClInclude Include="laneEffect.h">
+      <Filter>RhythmGameSystem\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="judge.h">
+      <Filter>RhythmGameSystem\Judge</Filter>
+    </ClInclude>
+    <ClInclude Include="judgeUtil.h">
+      <Filter>RhythmGameSystem\Judge</Filter>
+    </ClInclude>
+    <ClInclude Include="gameScoreVisual.h">
+      <Filter>RhythmGameSystem\GameScore</Filter>
+    </ClInclude>
+    <ClInclude Include="songScene.h">
+      <Filter>Scene\SongScene</Filter>
+    </ClInclude>
+    <ClInclude Include="game.h">
+      <Filter>Scene\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="songCarousel.h">
+      <Filter>Scene\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="difficultySelector.h">
+      <Filter>Scene\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="difficultyStars.h">
+      <Filter>Scene\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="judgeEffect.h">
+      <Filter>RhythmGameSystem\Judge</Filter>
+    </ClInclude>
+    <ClInclude Include="quantizedSePlayer.h">
+      <Filter>Assets\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="uiManager.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="modelRenderer.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="judgeSystem.h">
+      <Filter>RhythmGameSystem\Judge</Filter>
+    </ClInclude>
+    <ClInclude Include="noteConfig.h">
+      <Filter>RhythmGameSystem\Note</Filter>
+    </ClInclude>
+    <ClInclude Include="gameSettings.h">
+      <Filter>Scene\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="highScoreManager.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="particleBase.h">
+      <Filter>RhythmGameSystem\Effect\Paticle</Filter>
+    </ClInclude>
+    <ClInclude Include="particleInstance.h">
+      <Filter>RhythmGameSystem\Effect\Paticle</Filter>
+    </ClInclude>
+    <ClInclude Include="gameParticle.h">
+      <Filter>RhythmGameSystem\Effect\Paticle</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="DirectXTex.inl">
+      <Filter>ヘッダーファイル</Filter>
+    </None>
+    <None Include=".gitignore" />
+    <None Include="README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="DirectXTex_Debug.lib" />
+    <Library Include="DirectXTex_Release.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="shader\common.hlsl">
+      <Filter>shader</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\unlitTexturePS.hlsl">
+      <Filter>shader</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\unlitTextureVS.hlsl">
+      <Filter>shader</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\particlePS.hlsl">
+      <Filter>shader</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\particleVS.hlsl">
+      <Filter>shader</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\particleCS.hlsl">
+      <Filter>shader</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\laneBloomPS.hlsl">
+      <Filter>shader</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\gameParticleCS.hlsl">
+      <Filter>shader</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\laneEffectPS.hlsl">
+      <Filter>shader</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\laneEffectVS.hlsl">
+      <Filter>shader</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\scoreFillPS.hlsl">
+      <Filter>shader</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\scoreFillVS.hlsl">
+      <Filter>shader</Filter>
+    </FxCompile>
+  </ItemGroup>
+</Project>
