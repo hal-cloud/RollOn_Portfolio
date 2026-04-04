@@ -361,3 +361,10 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# Project-specific assets
+assets/model/
+assets/texture/
+
+# DirectX Compiled Shader objects
+*.cso

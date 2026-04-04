@@ -113,11 +113,14 @@ void ParticleBase::UpdateBase()
 
     if (!m_emitterExpired)
     {
-        m_emitterLifeTime--;
-        if (m_emitterLifeTime <= 0)
+        if (m_emitterLifeTime >= 0)
         {
-            m_emitterExpired      = true;
-            m_framesSinceExpired  = 0;
+            m_emitterLifeTime--;
+            if (m_emitterLifeTime <= 0)
+            {
+                m_emitterExpired      = true;
+                m_framesSinceExpired  = 0;
+            }
         }
     }
     else
