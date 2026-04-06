@@ -1,5 +1,5 @@
 #pragma once
-
+#include "main.h"
 
 struct VERTEX_3D
 {

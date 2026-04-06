@@ -1,5 +1,4 @@
 #pragma once
-#include "main.h"
 #include "renderer.h"
 #include "gameObject.h"
 
@@ -21,6 +20,13 @@ enum class ParticleType
     Perfect
 };
 
+enum class EmitterType
+{
+    Persistent,
+    Timed,
+    OneShot
+};
+
 class ParticleBase : public GameObject
 {
 public:
@@ -32,6 +38,7 @@ public:
         float          drawOffsetY     = 0.3f;
         const char*    computeShader   = "shader\\particleCS.cso";
         const wchar_t* texture         = L"assets\\texture\\star.png";
+        EmitterType    emitterType     = EmitterType::Timed;
     };
 
     void InitBase(const Config& cfg);
@@ -49,23 +56,24 @@ protected:
     bool m_enable = true;
 
 private:
-    ID3D11Buffer*              m_vertexBuffer          = nullptr;
-    ID3D11Buffer*              m_positionBuffer        = nullptr;
-    ID3D11ShaderResourceView*  m_positionSRV           = nullptr;
-    ID3D11UnorderedAccessView* m_positionUAV           = nullptr;
-    ID3D11InputLayout*         m_vertexLayout          = nullptr;
-    ID3D11VertexShader*        m_vertexShader          = nullptr;
-    ID3D11PixelShader*         m_pixelShader           = nullptr;
-    ID3D11ComputeShader*       m_computeShader         = nullptr;
-    ID3D11ShaderResourceView*  m_texture               = nullptr;
-    ID3D11Buffer*              m_computeConstantBuffer = nullptr;
+    ComPtr<ID3D11Buffer>              m_vertexBuffer;
+    ComPtr<ID3D11Buffer>              m_positionBuffer;
+    ComPtr<ID3D11ShaderResourceView>  m_positionSRV;
+    ComPtr<ID3D11UnorderedAccessView> m_positionUAV;
+    ComPtr<ID3D11InputLayout>         m_vertexLayout;
+    ComPtr<ID3D11VertexShader>        m_vertexShader;
+    ComPtr<ID3D11PixelShader>         m_pixelShader;
+    ComPtr<ID3D11ComputeShader>       m_computeShader;
+    ComPtr<ID3D11ShaderResourceView>  m_texture;
+    ComPtr<ID3D11Buffer>              m_computeConstantBuffer;
 
     std::vector<PARTICLEDATA> m_particles;
-    int          m_maxParticles      = 20;
-    int          m_maxParticleLife   = 60;
-    int          m_emitterLifeTime   = 20;
-    float        m_drawOffsetY       = 0.3f;
-    bool         m_emitterExpired    = false;
+    int          m_maxParticles       = 20;
+    int          m_maxParticleLife    = 60;
+    int          m_emitterLifeTime    = 20;
+    float        m_drawOffsetY        = 0.3f;
+    bool         m_emitterExpired     = false;
     int          m_framesSinceExpired = 0;
-    ParticleType m_type              = ParticleType::Default;
+    ParticleType m_type               = ParticleType::Default;
+    EmitterType  m_emitterType        = EmitterType::Timed;
 };

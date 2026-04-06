@@ -9,10 +9,11 @@ public:
         Config cfg;
         cfg.maxParticles    = 75;
         cfg.maxParticleLife = 240;
-        cfg.emitterLifeTime = -1;
+        cfg.emitterLifeTime = 1;
         cfg.drawOffsetY     = 5.0f;
         cfg.computeShader   = "shader\\gameParticleCS.cso";
         cfg.texture         = L"assets\\texture\\star.png";
+		cfg.emitterType = EmitterType::Persistent;
         InitBase(cfg);
     }
     void Uninit() override { UninitBase(); }

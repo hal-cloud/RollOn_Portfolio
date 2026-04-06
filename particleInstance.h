@@ -13,6 +13,7 @@ public:
         cfg.drawOffsetY     = 0.3f;
         cfg.computeShader   = "shader\\particleCS.cso";
         cfg.texture         = L"assets\\texture\\star.png";
+		cfg.emitterType = EmitterType::Timed;
         InitBase(cfg);
     }
     void Uninit() override { UninitBase(); }

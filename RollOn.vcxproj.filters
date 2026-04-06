@@ -211,6 +211,9 @@
     <ClCompile Include="vector3.cpp">
       <Filter>ソースファイル</Filter>
     </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>ソースファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -399,6 +402,9 @@
     </ClInclude>
     <ClInclude Include="gameParticle.h">
       <Filter>RhythmGameSystem\Effect\Paticle</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>ヘッダーファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
