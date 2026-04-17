@@ -18,8 +18,6 @@ public:
 		m_components.clear();
 	}
 
-	virtual void Init() {}
-	virtual void Init(int posx, int posy, int width, int height, const wchar_t* fileName) {}
 	virtual void Uninit() {}
 
 	virtual void Update()

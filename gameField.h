@@ -11,7 +11,7 @@ private:
 	class Field* m_field[3] = {};
 	float m_rotation = 0.0f;
 public:
-	void Init() override;
+	void Init();
 	void Uninit() override;
 	void Update() override;
 	void Draw() override;

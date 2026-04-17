@@ -1,12 +1,18 @@
+//=========================================================
+// SoundPlayer.h サウンド再生クラス
+// SoundLoaderで読み込んだサウンドデータを再生するクラス
+//=========================================================
 #pragma once
+#define NOMINMAX // Windows.hのmin/maxマクロを無効化（std::min/std::maxを使うため）
 #include <xaudio2.h>
 #include <X3DAudio.h>
 #include <memory>
-#include <fstream>
 #include <vector>
 #include <cstdint>
 #include "soundLoader.h"
+#include "streamingFileReader.h"
 #include "vector3.h"
+
 
 class SoundPlayer : public IXAudio2VoiceCallback
 {
@@ -37,6 +43,7 @@ public:
     bool Is3DEnabled() const { return m_is3DEnabled; }
     void Update3DAudio(const X3DAUDIO_LISTENER& listener);
 
+	// IXAudio2VoiceCallback の実装
     void OnBufferEnd(void* pBufferContext) override;
     void OnVoiceProcessingPassStart(UINT32) override {}
     void OnVoiceProcessingPassEnd() override {}
@@ -46,29 +53,27 @@ public:
     void OnVoiceError(void*, HRESULT) override {}
 
 private:
-    IXAudio2SourceVoice* m_sourceVoice = nullptr;
-    const SoundData* m_soundData = nullptr;
-    const StreamingSoundData* m_streamData = nullptr;
-    bool m_is3DEnabled = false;
-    bool m_isStreaming = false;
-    bool m_isLooping = false;
-    bool m_streamEnded = false;
+    IXAudio2SourceVoice*      m_sourceVoice = nullptr;
+    const SoundData*          m_soundData   = nullptr;
+    const StreamingSoundData* m_streamData  = nullptr;
+    bool m_is3DEnabled  = false;
+    bool m_isStreaming  = false;
+    bool m_isLooping    = false;
+    bool m_streamEnded  = false;
 
     static const int STREAMING_BUFFER_COUNT = 3;
-    static const int STREAMING_BUFFER_SIZE = 65536;
+    static const int STREAMING_BUFFER_SIZE  = 65536;
     std::vector<BYTE> m_streamBuffers[STREAMING_BUFFER_COUNT];
-    uint32_t m_streamBufferSizes[STREAMING_BUFFER_COUNT]{};
-    std::ifstream m_streamFile;
-    uint32_t m_streamPosition = 0;
-    uint32_t m_currentBufferIndex = 0;
-    uint32_t m_streamStartOffsetBytes = 0;
-    uint32_t m_streamTotalBytes = 0;
+    uint32_t          m_streamBufferSizes[STREAMING_BUFFER_COUNT]{};
+    uint32_t          m_currentBufferIndex = 0;
 
-    X3DAUDIO_EMITTER m_emitter{};
+    StreamingFileReader m_fileReader;
+
+    X3DAUDIO_EMITTER    m_emitter{};
     X3DAUDIO_DSP_SETTINGS m_dspSettings{};
-    float m_matrixCoefficients[8]{};
-    Vector3 m_position{};
-    Vector3 m_velocity{};
+    float               m_matrixCoefficients[8]{};
+    Vector3             m_position{};
+    Vector3             m_velocity{};
 
     const WAVEFORMATEX* GetFormat() const;
     bool LoadNextStreamBuffer(int bufferIndex);

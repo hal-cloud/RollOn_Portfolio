@@ -21,7 +21,7 @@ private:
 	std::unordered_map<LaneType, class Field*> m_lanes;
 	float m_laneWidth;
 public:
-	void Init() override;
+	void Init();
 	void Uninit() override;
 	void Update() override;
 	void Draw() override;

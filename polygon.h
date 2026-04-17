@@ -20,7 +20,7 @@ protected:
 	Vector3 m_color = Vector3(1.0f, 1.0f, 1.0f);
 
 public:
-	void Init(int posx, int posy,int width,int height,const wchar_t* fileName) override;
+	void Init(int posx, int posy,int width,int height,const wchar_t* fileName);
 	void Uninit(void) override;
 	void Update() override;
 	void Draw() override;

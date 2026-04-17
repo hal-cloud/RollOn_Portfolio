@@ -134,7 +134,7 @@
       <PreprocessorDefinitions>
       </PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <AdditionalIncludeDirectories>C:\Users\ths31040\Desktop\GM31\プロジェクト\Master_Original\openal-soft-1.24.3\openal-soft-1.24.3\include\AL;"C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\X3DAudio.h";%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
@@ -142,7 +142,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>DirectXTex_Release.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>xaudio2.lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -199,6 +199,7 @@
     <ClCompile Include="soundManager.cpp" />
     <ClCompile Include="soundPlayer.cpp" />
     <ClCompile Include="atlas.cpp" />
+    <ClCompile Include="streamingFileReader.cpp" />
     <ClCompile Include="tapEffect.cpp" />
     <ClCompile Include="texture.cpp" />
     <ClCompile Include="title.cpp" />
@@ -262,6 +263,7 @@
     <ClInclude Include="soundManager.h" />
     <ClInclude Include="soundPlayer.h" />
     <ClInclude Include="atlas.h" />
+    <ClInclude Include="streamingFileReader.h" />
     <ClInclude Include="tapEffect.h" />
     <ClInclude Include="texture.h" />
     <ClInclude Include="theFinal.h" />

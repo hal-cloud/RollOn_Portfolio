@@ -15,7 +15,7 @@ private:
 	static class ModelRenderer* s_modelRenderer;
 	
 public:
-	void Init() override;
+	void Init();
 	void Uninit(void) override;
 	void Update() override;
 	void Draw() override;

@@ -1,6 +1,10 @@
+//=========================================================
+// SoundLoader.h サウンドファイルの読み込みクラス
+// サウンドファイルを読み込み、サウンドデータを管理するクラス
+//=========================================================
 #pragma once
 #include <string>
-#include <map>
+#include <unordered_map>
 #include <vector>
 #include <xaudio2.h>
 #include <fstream>
@@ -41,6 +45,7 @@ public:
     void Clear();
 
 private:
-    std::map<std::string, SoundData> m_sounds;
-    std::map<std::string, StreamingSoundData> m_streamingSounds;
+	// unordered_mapでキーとサウンドデータを管理。より高速な検索のため
+    std::unordered_map<std::string, SoundData> m_sounds;
+    std::unordered_map<std::string, StreamingSoundData> m_streamingSounds;
 };

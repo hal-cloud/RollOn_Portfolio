@@ -10,7 +10,7 @@ class BeatManager : public GameObject
 public:
     BeatManager() = default;
 
-    void Init() override;
+    void Init();
     void Uninit() override;
     void Update() override;
 

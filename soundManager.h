@@ -1,5 +1,8 @@
+//=========================================================
+// SoundManager.h サウンド管理クラス
+// ファサードパターンでサウンドシステム全体を管理
+//=========================================================
 #pragma once
-
 #include <wrl/client.h>
 #include <xaudio2.h>
 #include <X3DAudio.h>
@@ -25,9 +28,9 @@ public:
     static void Update();
 
     // サウンドのロード //---------------------------------
-    // メモリ全体読み込み（短い効果音向け）
+    // メモリ全体読み込み（効果音向け）
     static bool Load(const std::string& key, const std::wstring& filename);
-    // ストリーミング読み込み（長いBGM向け）
+    // ストリーミング読み込み（BGM向け）
     static bool LoadStreaming(const std::string& key, const std::wstring& filename);
     //-----------------------------------------------------
 
@@ -76,7 +79,6 @@ public:
     // 指定キーの一時停止／再開（ストリーミングも選択可）
     static void Pause(const std::string& key, bool searchStreaming = true);
     static void Resume(const std::string& key, bool searchStreaming = true);
-
 private:
     static Microsoft::WRL::ComPtr<IXAudio2> s_xAudio2;
     static IXAudio2MasteringVoice* s_masterVoice;

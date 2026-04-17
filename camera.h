@@ -30,7 +30,7 @@ private:
 	bool m_isRocking = false;
 public:
 
-    void Init() override;
+    void Init();
     void Uninit(void) override;
     void Update() override;
     void Draw() override;

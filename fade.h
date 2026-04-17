@@ -14,7 +14,7 @@ private:
 	float m_fadeSpeed = 0.02f;
 	Polygon2D* m_polygon = nullptr;
 public:
-	void Init() override;
+	void Init();
 	void Uninit() override;
 	void Update() override;
 	void Draw() override;

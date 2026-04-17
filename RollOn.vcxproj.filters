@@ -68,6 +68,15 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
+    <Filter Include="Assets\Sound\Load">
+      <UniqueIdentifier>{3e71c3d8-79c1-40a8-99e6-ec69271b3359}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets\Sound\Play">
+      <UniqueIdentifier>{931b162e-382f-4e93-9682-c61d0519b880}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets\Sound\Manager">
+      <UniqueIdentifier>{56c1c121-52ac-4e4b-b0ea-2a6400255827}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="player.cpp">
@@ -78,15 +87,6 @@
     </ClCompile>
     <ClCompile Include="xinputButton.cpp">
       <Filter>Input</Filter>
-    </ClCompile>
-    <ClCompile Include="soundManager.cpp">
-      <Filter>Assets\Sound</Filter>
-    </ClCompile>
-    <ClCompile Include="soundLoader.cpp">
-      <Filter>Assets\Sound</Filter>
-    </ClCompile>
-    <ClCompile Include="soundPlayer.cpp">
-      <Filter>Assets\Sound</Filter>
     </ClCompile>
     <ClCompile Include="texture.cpp">
       <Filter>Assets\Texture</Filter>
@@ -214,6 +214,18 @@
     <ClCompile Include="pch.cpp">
       <Filter>ソースファイル</Filter>
     </ClCompile>
+    <ClCompile Include="soundLoader.cpp">
+      <Filter>Assets\Sound\Load</Filter>
+    </ClCompile>
+    <ClCompile Include="soundPlayer.cpp">
+      <Filter>Assets\Sound\Play</Filter>
+    </ClCompile>
+    <ClCompile Include="soundManager.cpp">
+      <Filter>Assets\Sound\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="streamingFileReader.cpp">
+      <Filter>Assets\Sound\Load</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -248,15 +260,6 @@
     </ClInclude>
     <ClInclude Include="xinputButton.h">
       <Filter>Input</Filter>
-    </ClInclude>
-    <ClInclude Include="soundManager.h">
-      <Filter>Assets\Sound</Filter>
-    </ClInclude>
-    <ClInclude Include="soundLoader.h">
-      <Filter>Assets\Sound</Filter>
-    </ClInclude>
-    <ClInclude Include="soundPlayer.h">
-      <Filter>Assets\Sound</Filter>
     </ClInclude>
     <ClInclude Include="texture.h">
       <Filter>Assets\Texture</Filter>
@@ -373,9 +376,6 @@
     <ClInclude Include="judgeEffect.h">
       <Filter>RhythmGameSystem\Judge</Filter>
     </ClInclude>
-    <ClInclude Include="quantizedSePlayer.h">
-      <Filter>Assets\Sound</Filter>
-    </ClInclude>
     <ClInclude Include="uiManager.h">
       <Filter>ヘッダーファイル</Filter>
     </ClInclude>
@@ -405,6 +405,21 @@
     </ClInclude>
     <ClInclude Include="pch.h">
       <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="soundLoader.h">
+      <Filter>Assets\Sound\Load</Filter>
+    </ClInclude>
+    <ClInclude Include="soundPlayer.h">
+      <Filter>Assets\Sound\Play</Filter>
+    </ClInclude>
+    <ClInclude Include="quantizedSePlayer.h">
+      <Filter>Assets\Sound\Play</Filter>
+    </ClInclude>
+    <ClInclude Include="soundManager.h">
+      <Filter>Assets\Sound\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="streamingFileReader.h">
+      <Filter>Assets\Sound\Load</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

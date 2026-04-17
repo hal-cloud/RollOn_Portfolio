@@ -4,7 +4,7 @@
 class GameParticle : public ParticleBase
 {
 public:
-    void Init() override
+    void Init()
     {
         Config cfg;
         cfg.maxParticles    = 75;

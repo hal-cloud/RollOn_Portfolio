@@ -4,11 +4,15 @@
 
 namespace
 {
-    constexpr size_t kMaxIdlePlayersPerKey = 8;
-    constexpr long long kMinPlayIntervalMs = 30;
+	constexpr size_t kMaxIdlePlayersPerKey = 8;     // 各キーごとに再利用のために保持する再生終了プレイヤーの最大数
+    constexpr long long kMinPlayIntervalMs = 30;    // 同一キーの最小再生間隔
 
+	// キーごとに複数のプレイヤーを管理するためのマップ
     using PlayerMap = std::map<std::string, std::vector<std::unique_ptr<SoundPlayer>>>;
 
+	//-------------------------------
+	// 指定キーの再生中プレイヤーを検索
+    //-------------------------------
     SoundPlayer* FindActivePlayer(PlayerMap& players, const std::string& key)
     {
         auto it = players.find(key);
@@ -24,11 +28,12 @@ namespace
                 return player.get();
             }
         }
-
         return nullptr;
     }
 
+    //---------------------------------
     // 再生終了済みのプレイヤーを再利用し、なければ新規作成
+    //---------------------------------
     SoundPlayer* AcquireReusablePlayer(std::vector<std::unique_ptr<SoundPlayer>>& list,
                                        const SoundData* data,
                                        IXAudio2* xAudio2)
@@ -44,8 +49,30 @@ namespace
         list.push_back(std::make_unique<SoundPlayer>(xAudio2, data));
         return list.back().get();
     }
+
+    //---------------------------------
+	// 最小再生間隔チェックヘルパ
+    //---------------------------------
+    bool CheckAndUpdatePlayInterval(
+        std::map<std::string, std::chrono::steady_clock::time_point>& lastPlayTime,
+        const std::string& key, bool loop)
+    {
+        if (loop) return true;
+        auto now = std::chrono::steady_clock::now();
+        auto it = lastPlayTime.find(key);
+        if (it != lastPlayTime.end())
+        {
+            auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(now - it->second);
+            if (elapsed.count() < kMinPlayIntervalMs) return false;
+        }
+        lastPlayTime[key] = now;
+        return true;
+    }
 }
 
+//=====================================
+// 静的メンバーの定義
+//=====================================
 Microsoft::WRL::ComPtr<IXAudio2> SoundManager::s_xAudio2;
 IXAudio2MasteringVoice* SoundManager::s_masterVoice = nullptr;
 SoundLoader SoundManager::s_loader;
@@ -59,7 +86,9 @@ X3DAUDIO_HANDLE SoundManager::s_x3dInstance = {};
 X3DAUDIO_LISTENER SoundManager::s_listener = {};
 DWORD SoundManager::s_channelMask = 0;
 
-SoundManager::SoundManager(){
+
+SoundManager::SoundManager()
+{
 }
 
 SoundManager::~SoundManager() 
@@ -122,21 +151,7 @@ void SoundManager::Play(const std::string& key, bool loop, float startVolume, do
     const SoundData* data = s_loader.Get(key);
     if (!data || !s_xAudio2) return;
 
-    // 同一キーの最小再生間隔チェック（ループ音は除外）
-    if (!loop)
-    {
-        auto now = std::chrono::steady_clock::now();
-        auto it = s_lastPlayTime.find(key);
-        if (it != s_lastPlayTime.end())
-        {
-            auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(now - it->second);
-            if (elapsed.count() < kMinPlayIntervalMs) // 30ms以内の再発火を抑制
-            {
-                return;
-            }
-        }
-        s_lastPlayTime[key] = now;
-    }
+	if (!CheckAndUpdatePlayInterval(s_lastPlayTime, key, loop)) return;
 
     auto& playerList = s_players[key];
     SoundPlayer* player = AcquireReusablePlayer(playerList, data, s_xAudio2.Get());
@@ -155,21 +170,7 @@ void SoundManager::Play_RandVP(const std::string& key, bool loop, float startVol
     const SoundData* data = s_loader.Get(key);
     if (!data || !s_xAudio2) return;
 
-    // 同一キーの最小再生間隔チェック
-    if (!loop)
-    {
-        auto now = std::chrono::steady_clock::now();
-        auto it = s_lastPlayTime.find(key);
-        if (it != s_lastPlayTime.end())
-        {
-            auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(now - it->second);
-            if (elapsed.count() < kMinPlayIntervalMs)
-            {
-                return;
-            }
-        }
-        s_lastPlayTime[key] = now;
-    }
+    if (!CheckAndUpdatePlayInterval(s_lastPlayTime, key, loop)) return;
 
     std::random_device rd;
     std::mt19937 gen(rd());
