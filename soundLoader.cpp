@@ -114,6 +114,9 @@ namespace {
     {
         if (!info.found || info.size < 16) return false;
 
+        // ScanWavChunks() 終了時に EOF/fail が立っている場合があるため、
+        // 第2パスの seek/read 前に状態をクリアする。
+        file.clear();
         file.seekg(info.offset);
         outFormat = {};
 
