@@ -58,9 +58,6 @@
     <Filter Include="RhythmGameSystem\Score\Read">
       <UniqueIdentifier>{87f9ae41-4c03-4723-8952-b243c81ef24d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="RhythmGameSystem\Effect\Paticle">
-      <UniqueIdentifier>{d06ca329-39e8-4f34-b274-6aaf5a2937bf}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソースファイル">
       <UniqueIdentifier>{5ab43f88-adf5-4eb6-984e-86ef02f1727d}</UniqueIdentifier>
     </Filter>
@@ -76,6 +73,9 @@
     </Filter>
     <Filter Include="Assets\Sound\Manager">
       <UniqueIdentifier>{56c1c121-52ac-4e4b-b0ea-2a6400255827}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RhythmGameSystem\Paticle">
+      <UniqueIdentifier>{d06ca329-39e8-4f34-b274-6aaf5a2937bf}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -173,13 +173,13 @@
       <Filter>Scene\SongScene</Filter>
     </ClCompile>
     <ClCompile Include="gameParticle.cpp">
-      <Filter>RhythmGameSystem\Effect\Paticle</Filter>
+      <Filter>RhythmGameSystem\Paticle</Filter>
     </ClCompile>
     <ClCompile Include="particleInstance.cpp">
-      <Filter>RhythmGameSystem\Effect\Paticle</Filter>
+      <Filter>RhythmGameSystem\Paticle</Filter>
     </ClCompile>
     <ClCompile Include="particleBase.cpp">
-      <Filter>RhythmGameSystem\Effect\Paticle</Filter>
+      <Filter>RhythmGameSystem\Paticle</Filter>
     </ClCompile>
     <ClCompile Include="camera.cpp">
       <Filter>ソースファイル</Filter>
@@ -395,13 +395,13 @@
       <Filter>ヘッダーファイル</Filter>
     </ClInclude>
     <ClInclude Include="particleBase.h">
-      <Filter>RhythmGameSystem\Effect\Paticle</Filter>
+      <Filter>RhythmGameSystem\Paticle</Filter>
     </ClInclude>
     <ClInclude Include="particleInstance.h">
-      <Filter>RhythmGameSystem\Effect\Paticle</Filter>
+      <Filter>RhythmGameSystem\Paticle</Filter>
     </ClInclude>
     <ClInclude Include="gameParticle.h">
-      <Filter>RhythmGameSystem\Effect\Paticle</Filter>
+      <Filter>RhythmGameSystem\Paticle</Filter>
     </ClInclude>
     <ClInclude Include="pch.h">
       <Filter>ヘッダーファイル</Filter>

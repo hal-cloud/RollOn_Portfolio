@@ -1,35 +1,45 @@
+//=========================================================
+// player.cpp
+// プレイヤークラス実装
+//=========================================================
 #include "player.h"
-#include "camera.h"
-#include "manager.h"
-#include "renderer.h"
-#include "soundManager.h"
 
+//=========================================================
+// ライフサイクル
+//=========================================================
 
 void Player::Init()
 {
+	// コンポーネントを登録してアタッチする（PlayerInput など）
 	SetComponents();
 }
 
-void Player::Uninit(void)
+void Player::Uninit()
 {
 }
 
+//-----------------------------------------------------
+// 毎フレーム更新
+//-----------------------------------------------------
 void Player::Update()
 {
 	GameObject::Update();
-	for (auto& pair : m_components)
-	{
-		if (pair.second)
-		{
-			pair.second->Update();
-		}
-	}
 }
 
-void Player::Draw(void)
+void Player::Draw()
 {
 }
 
+
+//=========================================================
+// オートプレイ
+//=========================================================
+
+//-----------------------------------------------------
+// オートプレイの ON/OFF を切り替える
+// m_components を走査して PlayerInput を探し ToggleAutoPlay() を呼ぶ。
+// dynamic_cast で型安全にキャストし、PlayerInput 以外は無視する。
+//-----------------------------------------------------
 void Player::SetAutoPlay()
 {
 	for (auto& pair : m_components)
