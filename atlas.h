@@ -20,7 +20,6 @@ public:
     //-----------------------------------------------------
     // 初期化・終了
     // Init で頂点バッファ・テクスチャ・シェーダーを生成する。
-    // Uninit で全 GPU リソースを Release する。
     //-----------------------------------------------------
     void Init(int posx, int posy, int width, int height, const wchar_t* fileName);
     void Uninit();
@@ -31,11 +30,11 @@ protected:
     // 頂点バッファは D3D11_USAGE_DYNAMIC で作成し、
     // 派生クラスが Map/Unmap で毎フレーム書き換えられるようにする。
     //-----------------------------------------------------
-    ID3D11Buffer*             m_vertexBuffer = nullptr;
-    ID3D11InputLayout*        m_vertexLayout = nullptr;
-    ID3D11VertexShader*       m_vertexShader = nullptr;
-    ID3D11PixelShader*        m_pixelShader  = nullptr;
-    ID3D11ShaderResourceView* m_texture      = nullptr; // Texture::Load() が所有（Release 不要）
+    ComPtr<ID3D11Buffer>             m_vertexBuffer = nullptr;
+    ComPtr<ID3D11InputLayout>        m_vertexLayout = nullptr;
+    ComPtr<ID3D11VertexShader>       m_vertexShader = nullptr;
+    ComPtr<ID3D11PixelShader>        m_pixelShader  = nullptr;
+    ComPtr<ID3D11ShaderResourceView> m_texture      = nullptr; // Texture::Load() が所有（Release 不要）
 
     //-----------------------------------------------------
     // スプライトサイズ

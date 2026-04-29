@@ -44,7 +44,7 @@ void SongCarousel::Init(Scene* scene, std::vector<MusicSceneEntry>&& list)
         if (entry.artwork)
         {
             entry.artwork->SetPriority(5);
-            entry.artwork->SetGamma(kSongHiddenAlpha);
+            entry.artwork->SetAlpha(kSongHiddenAlpha);
         }
     }
 }
@@ -112,11 +112,11 @@ void SongCarousel::UpdateSongVisuals()
             const float alpha = kSongDimmedAlpha + (kSongSelectedAlpha - kSongDimmedAlpha) * influence;
 
             entry.artwork->SetScale(Vector3(scale, scale, 1.0f));
-            entry.artwork->SetGamma(alpha);
+            entry.artwork->SetAlpha(alpha);
         }
         else
         {
-            entry.artwork->SetGamma(kSongHiddenAlpha);
+            entry.artwork->SetAlpha(kSongHiddenAlpha);
         }
     }
 }

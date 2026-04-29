@@ -44,7 +44,7 @@ void Result::Init()
 		LAYER_UI,
 		SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2,
 		SCREEN_WIDTH, SCREEN_HEIGHT,
-		const_cast<wchar_t*>(resolved))->SetGamma(0.6f);
+		const_cast<wchar_t*>(resolved))->SetAlpha(0.6f);
 	
 	const ScoreResult& res = GameScore::Instance().GetLatest();
 	const int values[] = { res.maxCombo, res.perfect, res.good, res.miss, res.score };

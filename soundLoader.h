@@ -21,8 +21,6 @@
 
 //-----------------------------------------------------
 // メモリ全体読み込み用サウンドデータ（SE 向け）
-// audioData に WAV の PCM データ全体を保持する。
-// 短い SE に適しているが、長い BGM に使うとメモリを圧迫する。
 //-----------------------------------------------------
 struct SoundData
 {
@@ -32,8 +30,6 @@ struct SoundData
 
 //-----------------------------------------------------
 // ストリーミング再生用サウンドデータ（BGM 向け）
-// 音声本体はメモリに保持せず、再生時に StreamingFileReader が都度ファイルから読み込む。
-// dataChunkOffset と dataChunkSize で data チャンクの位置を記録しておく。
 //-----------------------------------------------------
 struct StreamingSoundData
 {
@@ -55,7 +51,11 @@ public:
 	// 同一キーが既に登録済みの場合は上書きせずスキップする
 	// （再生中データのポインタが無効になることを防ぐため）
 	//-----------------------------------------------------
-	bool Load(const std::string& key, const std::wstring& filename);         // SE 用：全データをメモリに展開
+	bool Load(const std::string& key, const std::wstring& filename);         // SE 用：全データをメモリに展開	
+	//-----------------------------------------------------
+	// BGM 用：ヘッダ情報のみ読み込む
+	// ファイルの存在確認とヘッダ解析のみ行い、再生時にファイルをオープンしてストリーミング再生する
+	//-----------------------------------------------------
 	bool LoadStreaming(const std::string& key, const std::wstring& filename); // BGM 用：ヘッダ情報のみ読み込む
 
 	//-----------------------------------------------------
@@ -73,7 +73,6 @@ public:
 
 private:
 	// キーとサウンドデータを対応付けるマップ
-	// unordered_map は O(1) 検索のため、毎フレーム呼ばれる Get() のコストを抑えられる
 	std::unordered_map<std::string, SoundData>          m_sounds;
 	std::unordered_map<std::string, StreamingSoundData> m_streamingSounds;
 };

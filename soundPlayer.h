@@ -8,14 +8,12 @@
 //=========================================================
 #pragma once
 #define NOMINMAX // Windows.h の min/max マクロを無効化（std::min/std::max を使うため）
+#include "main.h"
 #include <xaudio2.h>
 #include <X3DAudio.h>
-#include <memory>
-#include <vector>
 #include <cstdint>
 #include "soundLoader.h"
 #include "streamingFileReader.h"
-#include "vector3.h"
 
 
 class SoundPlayer : public IXAudio2VoiceCallback

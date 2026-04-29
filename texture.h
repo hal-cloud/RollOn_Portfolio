@@ -29,16 +29,12 @@ public:
 	//-----------------------------------------------------
 	static void UnloadAll()
 	{
-		for (auto& pair : s_textureMap)
-		{
-			if (pair.second) pair.second->Release();
-		}
 		s_textureMap.clear();
 	}
 
 private:
 	// ファイルパスをキーに ShaderResourceView をキャッシュするマップ
 	// unordered_map は O(1) 検索のため、毎フレーム呼ばれる Load() のコストを抑えられる
-	static std::unordered_map<std::wstring, ID3D11ShaderResourceView*> s_textureMap;
+	static std::unordered_map<std::wstring, ComPtr<ID3D11ShaderResourceView>> s_textureMap;
 };
 

@@ -18,8 +18,6 @@
 // 4頂点を center 基準で配置する（左上・右上・左下・右下の順）。
 // 頂点バッファは D3D11_USAGE_DYNAMIC にすることで、
 // 派生クラスが Map/Unmap で毎フレーム UV を書き換えられるようにする。
-// テクスチャは Texture::Load() のキャッシュを利用するため
-// 同一ファイルを複数インスタンスで共有してもロードは1回だけ行われる。
 //-----------------------------------------------------
 void Atlas::Init(int posx, int posy, int width, int height, const wchar_t* fileName)
 {
@@ -62,16 +60,16 @@ void Atlas::Init(int posx, int posy, int width, int height, const wchar_t* fileN
 	D3D11_SUBRESOURCE_DATA sd{};
 	sd.pSysMem = vertex;
 
-	Renderer::GetDevice()->CreateBuffer(&bd, &sd, &m_vertexBuffer);
+	Renderer::GetDevice()->CreateBuffer(&bd, &sd, m_vertexBuffer.GetAddressOf());
 
 	// テクスチャ読み込み
 	// Texture::Load() はキャッシュ済みの場合は既存ポインタを返すため二重ロードしない
 	m_texture = Texture::Load(fileName);
-	assert(m_texture); // ロード失敗時はファイルパス・フォーマットを確認すること
+	assert(m_texture); // ロード失敗時はファイルパス・フォーマットを確認する
 
 	// 非ライティング・テクスチャありシェーダーを使用する
-	Renderer::CreateVertexShader(&m_vertexShader, &m_vertexLayout, "shader\\unlitTextureVS.cso");
-	Renderer::CreatePixelShader(&m_pixelShader, "shader\\unlitTexturePS.cso");
+	Renderer::CreateVertexShader(m_vertexShader.GetAddressOf(), m_vertexLayout.GetAddressOf(), "shader\\unlitTextureVS.cso");
+	Renderer::CreatePixelShader(m_pixelShader.GetAddressOf(), "shader\\unlitTexturePS.cso");
 }
 
 
@@ -85,15 +83,5 @@ void Atlas::Init(int posx, int posy, int width, int height, const wchar_t* fileN
 //-----------------------------------------------------
 void Atlas::Uninit(void)
 {
-	m_vertexBuffer->Release();
-	m_vertexBuffer = nullptr;
 
-	m_vertexLayout->Release();
-	m_vertexLayout = nullptr;
-
-	m_vertexShader->Release();
-	m_vertexShader = nullptr;
-
-	m_pixelShader->Release();
-	m_pixelShader = nullptr;
 }

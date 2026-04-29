@@ -34,7 +34,7 @@ void DifficultySelector::Init(Scene* scene)
         if (m_badges[i])
         {
             m_badges[i]->SetColor(Vector3(1.0f, 1.0f, 1.0f));
-            m_badges[i]->SetGamma(0.4f);
+            m_badges[i]->SetAlpha(0.4f);
         }
     }
 }
@@ -69,6 +69,6 @@ void DifficultySelector::UpdateVisuals()
         const float alpha = 0.35f + 0.65f * influence;
 
         badge->SetScale(Vector3(scale, scale, 1.0f));
-        badge->SetGamma(alpha);
+        badge->SetAlpha(alpha);
     }
 }

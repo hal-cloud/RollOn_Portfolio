@@ -10,7 +10,7 @@
 //=========================================================
 
 // ファイルパス → ShaderResourceView のキャッシュマップ
-std::unordered_map<std::wstring, ID3D11ShaderResourceView*> Texture::s_textureMap;
+std::unordered_map<std::wstring, ComPtr<ID3D11ShaderResourceView>> Texture::s_textureMap;
 
 
 //=========================================================
@@ -30,18 +30,15 @@ std::unordered_map<std::wstring, ID3D11ShaderResourceView*> Texture::s_textureMa
 //-----------------------------------------------------
 ID3D11ShaderResourceView* Texture::Load(const wchar_t* fileName)
 {
-	// キャッシュ済みならそのまま返す（GPU リソースの二重生成を防ぐ）
-	if (s_textureMap.count(fileName) > 0)
-	{
-		return s_textureMap[fileName];
-	}
+	auto it = s_textureMap.find(fileName);
+	if (it != s_textureMap.end()) return it->second.Get();
 
 	// 未ロードの場合は WIC 経由でファイルを読み込み ShaderResourceView を生成する
 	ID3D11ShaderResourceView* texture;
 	TexMetadata  metadata;
 	ScratchImage image;
 
-	LoadFromWICFile((wchar_t*)fileName, WIC_FLAGS_NONE, &metadata, image);
+	LoadFromWICFile(fileName, WIC_FLAGS_NONE, &metadata, image);
 	CreateShaderResourceView(Renderer::GetDevice(), image.GetImages(), image.GetImageCount(), metadata, &texture);
 	assert(texture); // ロード失敗時はファイルパス・フォーマットを確認すること
 

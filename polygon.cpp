@@ -40,7 +40,7 @@ void Polygon2D::Init(int posx, int posy,int width,int height,const wchar_t* file
 	D3D11_SUBRESOURCE_DATA sd{};
 	sd.pSysMem = vertex;
 
-	Renderer::GetDevice()->CreateBuffer(&bd, &sd, &m_vertexBuffer);
+	Renderer::GetDevice()->CreateBuffer(&bd, &sd, m_vertexBuffer.GetAddressOf());
 
 	m_texture = Texture::Load(fileName);
 	assert(m_texture);
@@ -51,17 +51,17 @@ void Polygon2D::Init(int posx, int posy,int width,int height,const wchar_t* file
 
 void Polygon2D::Uninit(void)
 {
-	m_vertexBuffer->Release();
-	m_vertexBuffer = nullptr;
+	//m_vertexBuffer->Release();
+	//m_vertexBuffer = nullptr;
 
-	m_vertexLayout->Release();
-	m_vertexLayout = nullptr;
+	//m_vertexLayout->Release();
+	//m_vertexLayout = nullptr;
 
-	m_vertexShader->Release();
-	m_vertexShader = nullptr;
+	//m_vertexShader->Release();
+	//m_vertexShader = nullptr;
 
-	m_pixelShader->Release();
-	m_pixelShader = nullptr;
+	//m_pixelShader->Release();
+	//m_pixelShader = nullptr;
 }
 
 void Polygon2D::Update()
@@ -71,10 +71,10 @@ void Polygon2D::Update()
 
 void Polygon2D::Draw (void)
 {
-	Renderer::GetDeviceContext()->IASetInputLayout(m_vertexLayout);
+	Renderer::GetDeviceContext()->IASetInputLayout(m_vertexLayout.Get());
 
-	Renderer::GetDeviceContext()->VSSetShader(m_vertexShader, NULL, 0);
-	Renderer::GetDeviceContext()->PSSetShader(m_pixelShader, NULL, 0);
+	Renderer::GetDeviceContext()->VSSetShader(m_vertexShader.Get(), NULL, 0);
+	Renderer::GetDeviceContext()->PSSetShader(m_pixelShader.Get(), NULL, 0);
 
 	Renderer::SetWorldViewProjection2D();
 
@@ -88,15 +88,15 @@ void Polygon2D::Draw (void)
 	Renderer::SetWorldMatrix(world);
 
 	MATERIAL material;
-	material.Diffuse = XMFLOAT4(m_color.x, m_color.y, m_color.z, m_gamma);
+	material.Diffuse = XMFLOAT4(m_color.x, m_color.y, m_color.z, m_alpha);
 	material.TextureEnable = true;
 	Renderer::SetMaterial(material);
 
 	UINT stride = sizeof(VERTEX_3D);
 	UINT offset = 0;
-	Renderer::GetDeviceContext()->IASetVertexBuffers(0, 1, &m_vertexBuffer, &stride, &offset);
+	Renderer::GetDeviceContext()->IASetVertexBuffers(0, 1, m_vertexBuffer.GetAddressOf(), &stride, &offset);
 
-	Renderer::GetDeviceContext()->PSSetShaderResources(0, 1, &m_texture);
+	Renderer::GetDeviceContext()->PSSetShaderResources(0, 1, m_texture.GetAddressOf());
 
 	Renderer::GetDeviceContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
 

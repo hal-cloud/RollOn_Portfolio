@@ -8,18 +8,14 @@
 // 全メンバーが static のため、インスタンス化せずに使用する。
 //=========================================================
 #pragma once
-#include <wrl/client.h>
+#include "main.h"
 #include <xaudio2.h>
 #include <X3DAudio.h>
 #include <xaudio2fx.h>
-#include <map>
-#include <memory>
-#include <string>
 #include <chrono>
 #include <cstdint>
 #include "soundLoader.h"
 #include "soundPlayer.h"
-#include "vector3.h"
 #include <optional>
 
 class SoundManager

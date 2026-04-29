@@ -19,14 +19,16 @@ namespace {
     //-----------------------------------------------------
 
     // 各チャンクの共通ヘッダ（id 4バイト + サイズ 4バイト）
-    struct ChunkHeader {
+    struct ChunkHeader
+    {
         char     id[4];
         uint32_t size;
     };
 
     // ファイル先頭の RIFF ヘッダ
     // "RIFF" + ファイルサイズ + "WAVE" の12バイト固定構造
-    struct RiffHeader {
+    struct RiffHeader
+    {
         char     riff[4];     // "RIFF"
         uint32_t fileSize;    // ファイル全体サイズ - 8
         char     wave[4];     // "WAVE"
@@ -38,14 +40,16 @@ namespace {
     // offset == 0 かどうかで判定すると先頭チャンクを誤判定するため
     // found フラグで明示的に管理する。
     //-----------------------------------------------------
-    struct ChunkInfo {
+    struct ChunkInfo
+    {
         uint32_t offset = 0;     // データ先頭位置（チャンクヘッダ直後）
         uint32_t size   = 0;     // データサイズ
         bool     found  = false; // このチャンクが見つかったか
     };
 
     // ScanWavChunks の返り値。fmt と data の位置を保持する
-    struct WavScanResult {
+    struct WavScanResult
+    {
         ChunkInfo fmt;
         ChunkInfo data;
     };
@@ -68,7 +72,7 @@ namespace {
     // WAV チャンクの全スキャン（順序不問）
     //
     // WAV 仕様ではチャンクの出現順序は保証されていない。
-    // （data → fmt の順で格納されたファイルも存在する）
+    // （data -> fmt の順で格納されたファイルも存在する）
     // そのため1パスで読みながら処理せず、まず全チャンクの
     // 位置・サイズを収集してから seekg で直接読みに行く2パス構造にする。
     //

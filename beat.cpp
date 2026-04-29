@@ -1,61 +1,68 @@
+//=========================================================
+// beat.cpp
+// ビート可視化クラス実装
+//=========================================================
 #include "beat.h"
-#include "soundManager.h"
+#include "beatManager.h"
 #include "manager.h"
 #include "scene.h"
 #include "polygon.h"
-#include <chrono>
 #include <cmath>
+#include <algorithm>
 
-using Clock = std::chrono::steady_clock;
+//=========================================================
+// ライフサイクル
+//=========================================================
 
 void Beat::Init(int bpm)
 {
-    m_bpm = bpm;
-    m_interval = 60.0f / m_bpm;
-    m_lastTime = Clock::now();
-	m_beatVisual = Manager::GetScene()->AddGameObject<Polygon2D>(LAYER_UI, SCREEN_WIDTH / 2, SCREEN_HEIGHT - 150, 200, 200, (wchar_t*)L"assets\\texture\\star.png");
+    if (BeatManager* bm = BeatManager::GetInstance())
+    {
+        bm->SetBPM(bpm);
+    }
+
+    m_beatVisual = Manager::GetScene()->AddGameObject<Polygon2D>(
+        LAYER_UI, SCREEN_WIDTH / 2, SCREEN_HEIGHT - 150, 200, 200,
+        (wchar_t*)L"assets\\texture\\star.png");
 }
 
 void Beat::Uninit()
 {
-
+    if (m_beatVisual)
+    {
+        m_beatVisual->SetDestroy();
+        m_beatVisual = nullptr;
+    }
 }
 
+//-----------------------------------------------------
+// 毎フレーム更新
+// BeatManager のビートインデックスが変化したら m_currentScale を
+// m_expandScale に設定し、指数減衰で m_targetScale へ収束させる。
+// std::exp を使った減衰はフレームレート非依存になる。
+//-----------------------------------------------------
 void Beat::Update()
 {
-    auto now = Clock::now();
-    std::chrono::duration<float> elapsed = now - m_lastTime;
+    BeatManager* bm = BeatManager::GetInstance();
+    if (!bm) return;
 
-    while (elapsed.count() >= m_interval)
+    const uint64_t currentIndex = bm->GetCurrentBeatIndex();
+    if (currentIndex != m_lastBeatIndex)
     {
-        m_lastTime += std::chrono::duration_cast<std::chrono::steady_clock::duration>(
-            std::chrono::duration<float>(m_interval));
-        elapsed = now - m_lastTime;
-        m_currentScale = m_expandScale;
+        m_lastBeatIndex  = currentIndex;
+        m_currentScale   = m_expandScale;
     }
 
-    float dt = std::min(elapsed.count(), kMaxDeltaTime);
-    float decay = 1.0f - std::exp(-m_shrinkSpeed * dt);
+    const float intervalSec = static_cast<float>(bm->GetBeatIntervalMilliseconds() * 0.001);
+    const float elapsed     = static_cast<float>(bm->GetBeatPhase()) * intervalSec;
+    const float dt          = std::min(elapsed, 0.1f); // 過大な dt によるオーバーシュートを防ぐ
 
-    m_currentScale = m_currentScale + (m_targetScale - m_currentScale) * decay;
-    m_currentScale = std::max(kMinScale, std::min(m_currentScale, kMaxScale));
+    const float decay  = 1.0f - std::exp(-m_shrinkSpeed * dt);
+    m_currentScale     = m_currentScale + (m_targetScale - m_currentScale) * decay;
+    m_currentScale     = std::max(kMinScale, std::min(m_currentScale, kMaxScale));
 
-    if (m_beatVisual) m_beatVisual->SetScale(Vector3(m_currentScale, m_currentScale, 1.0f));
- 
-}
-
-void Beat::Draw()
-{
-}
-
-float Beat::GetElapsedFromLastBeat() const
-{
-    auto now = Clock::now();
-    std::chrono::duration<float> elapsed = now - m_lastTime;
-    return elapsed.count();
-}
-
-float Beat::GetTimeToNextBeat() const
-{
-    return m_interval - GetElapsedFromLastBeat();
+    if (m_beatVisual)
+    {
+        m_beatVisual->SetScale(Vector3(m_currentScale, m_currentScale, 1.0f));
+    }
 }

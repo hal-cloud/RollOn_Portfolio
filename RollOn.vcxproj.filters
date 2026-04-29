@@ -127,9 +127,6 @@
     <ClCompile Include="beat.cpp">
       <Filter>RhythmGameSystem\Beat</Filter>
     </ClCompile>
-    <ClCompile Include="effect.cpp">
-      <Filter>RhythmGameSystem\Effect</Filter>
-    </ClCompile>
     <ClCompile Include="tapEffect.cpp">
       <Filter>RhythmGameSystem\Effect</Filter>
     </ClCompile>
@@ -311,9 +308,6 @@
     </ClInclude>
     <ClInclude Include="beat.h">
       <Filter>RhythmGameSystem\Beat</Filter>
-    </ClInclude>
-    <ClInclude Include="effect.h">
-      <Filter>RhythmGameSystem\Effect</Filter>
     </ClInclude>
     <ClInclude Include="tapEffect.h">
       <Filter>RhythmGameSystem\Effect</Filter>

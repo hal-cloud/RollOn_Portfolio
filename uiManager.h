@@ -96,7 +96,7 @@ public:
             if (m_bgPolygon)
             {
                 m_bgPolygon->SetPriority(priority);
-                m_bgPolygon->SetGamma(0.0f);
+                m_bgPolygon->SetAlpha(0.0f);
             }
         }
 
@@ -110,7 +110,7 @@ public:
             if (m_titlePolygon)
             {
                 m_titlePolygon->SetPriority(priority + 1);
-                m_titlePolygon->SetGamma(0.0f);
+                m_titlePolygon->SetAlpha(0.0f);
             }
         }
 
@@ -141,7 +141,7 @@ public:
                 {
                     item.sliderBar->SetPriority(priority + 3);
                     item.sliderBar->SetColor(Vector3(0.15f, 0.15f, 0.15f));
-                    item.sliderBar->SetGamma(0.0f);
+                    item.sliderBar->SetAlpha(0.0f);
                 }
 
                 item.sliderFill = scene->AddGameObject<Polygon2D>(
@@ -151,7 +151,7 @@ public:
                 {
                     item.sliderFill->SetPriority(priority + 4);
                     item.sliderFill->SetColor(Vector3(0.2f, 0.6f, 1.0f));
-                    item.sliderFill->SetGamma(0.0f);
+                    item.sliderFill->SetAlpha(0.0f);
                 }
 
                 UpdateSliderVisual(item);
@@ -168,7 +168,7 @@ public:
             if (item.polygon)
             {
                 item.polygon->SetPriority(priority + 2);
-                item.polygon->SetGamma(0.0f);
+                item.polygon->SetAlpha(0.0f);
             }
         }
 
@@ -180,15 +180,15 @@ public:
         m_visible = visible;
         float bgGamma = visible ? m_bgAlpha : 0.0f;
 
-        if (m_bgPolygon) m_bgPolygon->SetGamma(bgGamma);
-        if (m_titlePolygon) m_titlePolygon->SetGamma(visible ? 1.0f : 0.0f);
+        if (m_bgPolygon) m_bgPolygon->SetAlpha(bgGamma);
+        if (m_titlePolygon) m_titlePolygon->SetAlpha(visible ? 1.0f : 0.0f);
 
         for (size_t i = 0; i < m_items.size(); ++i)
         {
             float itemGamma = visible ? (i == m_selectedIndex ? 1.0f : m_unselectedAlpha) : 0.0f;
-            if (m_items[i].polygon) m_items[i].polygon->SetGamma(itemGamma);
-            if (m_items[i].sliderBar) m_items[i].sliderBar->SetGamma(visible ? 0.8f : 0.0f);
-            if (m_items[i].sliderFill) m_items[i].sliderFill->SetGamma(itemGamma);
+            if (m_items[i].polygon) m_items[i].polygon->SetAlpha(itemGamma);
+            if (m_items[i].sliderBar) m_items[i].sliderBar->SetAlpha(visible ? 0.8f : 0.0f);
+            if (m_items[i].sliderFill) m_items[i].sliderFill->SetAlpha(itemGamma);
         }
     }
 
@@ -272,7 +272,7 @@ private:
 
             if (m_items[i].polygon)
             {
-                m_items[i].polygon->SetGamma(gamma);
+                m_items[i].polygon->SetAlpha(gamma);
                 if (!m_items[i].isSlider)
                 {
                     float s = (i == m_selectedIndex) ? 1.1f : 1.0f;
@@ -281,7 +281,7 @@ private:
             }
             if (m_items[i].sliderFill)
             {
-                m_items[i].sliderFill->SetGamma(gamma);
+                m_items[i].sliderFill->SetAlpha(gamma);
             }
         }
     }

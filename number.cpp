@@ -112,11 +112,11 @@ void Number::Update()
 //-----------------------------------------------------
 void Number::Draw()
 {
-    Renderer::GetDeviceContext()->IASetInputLayout(m_vertexLayout);
+    Renderer::GetDeviceContext()->IASetInputLayout(m_vertexLayout.Get());
 
     // シェーダー設定
-    Renderer::GetDeviceContext()->VSSetShader(m_vertexShader, NULL, 0);
-    Renderer::GetDeviceContext()->PSSetShader(m_pixelShader, NULL, 0);
+    Renderer::GetDeviceContext()->VSSetShader(m_vertexShader.Get(), NULL, 0);
+    Renderer::GetDeviceContext()->PSSetShader(m_pixelShader.Get(), NULL, 0);
 
     // マトリックス設定（2D 射影行列を使用）
     Renderer::SetWorldViewProjection2D();
@@ -137,8 +137,8 @@ void Number::Draw()
 
     UINT stride = sizeof(VERTEX_3D);
     UINT offset = 0;
-    Renderer::GetDeviceContext()->IASetVertexBuffers(0, 1, &m_vertexBuffer, &stride, &offset);
-    Renderer::GetDeviceContext()->PSSetShaderResources(0, 1, &m_texture);
+    Renderer::GetDeviceContext()->IASetVertexBuffers(0, 1, m_vertexBuffer.GetAddressOf(), &stride, &offset);
+    Renderer::GetDeviceContext()->PSSetShaderResources(0, 1, m_texture.GetAddressOf());
     Renderer::GetDeviceContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
 
     // 表示文字列を生成（0 は "0" で 1 桁表示）
@@ -162,7 +162,7 @@ void Number::Draw()
     for (int i = 0; i < digits; i++)
     {
         D3D11_MAPPED_SUBRESOURCE msr;
-        Renderer::GetDeviceContext()->Map(m_vertexBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &msr);
+        Renderer::GetDeviceContext()->Map(m_vertexBuffer.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &msr);
         VERTEX_3D* vertex = (VERTEX_3D*)msr.pData;
 
         const float x   = startX + i * w;
@@ -195,7 +195,7 @@ void Number::Draw()
         vertex[3].Diffuse  = XMFLOAT4(1.0f,  1.0f,  1.0f, 1.0f);
         vertex[3].TexCoord = XMFLOAT2(tx + tw,    ty + th);
 
-        Renderer::GetDeviceContext()->Unmap(m_vertexBuffer, 0);
+        Renderer::GetDeviceContext()->Unmap(m_vertexBuffer.Get(), 0);
         Renderer::GetDeviceContext()->Draw(4, 0);
     }
 }

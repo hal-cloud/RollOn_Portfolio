@@ -38,7 +38,7 @@ void DifficultyStars::Init(Scene* scene)
         {
             m_stars[i]->SetPriority(6);
             m_stars[i]->SetColor(kStarColorOff);
-            m_stars[i]->SetGamma(0.3f);
+            m_stars[i]->SetAlpha(0.3f);
         }
     }
 }
@@ -57,6 +57,6 @@ void DifficultyStars::UpdateStars(int starCount)
 
         const bool filled = i < starCount;
         star->SetColor(filled ? onColor : kStarColorOff);
-        star->SetGamma(filled ? 1.0f : 0.25f);
+        star->SetAlpha(filled ? 1.0f : 0.25f);
     }
 }

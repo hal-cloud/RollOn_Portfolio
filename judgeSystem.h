@@ -1,3 +1,12 @@
+//=========================================================
+// judgeSystem.h
+// 判定システムクラス
+//
+// ノーツのタイミング判定・スコア加算・エフェクト生成を一元管理する。
+// オートプレイとプレイヤー入力の両方に対応し、
+// Perfect / Good / Miss の判定結果に応じたエフェクトを生成する。
+// 全メンバーが static のため、インスタンス化せずに使用する。
+//=========================================================
 #pragma once
 #include <array>
 #include <vector>
@@ -17,15 +26,37 @@
 
 class JudgeSystem
 {
+    //=========================================================
+    // 型エイリアス
+    //=========================================================
 public:
+    // レーン番号（0=LOW / 1=MID / 2=HIGH / 3=CRASH）をキーにしたノーツリスト
     using NotesByLane = std::array<std::vector<Note*>, 4>;
 
+    //=========================================================
+    // 判定ウィンドウ取得
+    //=========================================================
+
+    //-----------------------------------------------------
+    // GetJudgeWindow
+    // Perfect / Good / Miss それぞれの許容時間差（秒）を返す
+    // 静的な定数として一か所で管理し、全判定処理で共用する
+    //-----------------------------------------------------
     static const JudgeWindow& GetJudgeWindow()
     {
         static const JudgeWindow window{ 0.045f, 0.06f, 0.075f };
         return window;
     }
 
+    //=========================================================
+    // ノーツ収集
+    //=========================================================
+
+    //-----------------------------------------------------
+    // CollectNotesByLane
+    // シーン上の未判定 Note をレーンインデックスごとに振り分けて返す
+    // ハンドラ関数の冒頭で一度だけ呼び出し、結果を使い回す
+    //-----------------------------------------------------
     static NotesByLane CollectNotesByLane(Scene* scene)
     {
         NotesByLane notesByLane{};
@@ -41,6 +72,16 @@ public:
         return notesByLane;
     }
 
+    //=========================================================
+    // 判定処理（公開）
+    //=========================================================
+
+    //-----------------------------------------------------
+    // HandleAutoPlay
+    // 全レーンのノーツを自動判定する（オートプレイ用）
+    // Perfect 判定ウィンドウの 40% 以内に収まるノーツのみを対象とし
+    // 最も時間差の小さいものを選んでスコア・エフェクトを処理する
+    //-----------------------------------------------------
     static void HandleAutoPlay(Scene* scene,
         Lane* laneObj,
         double now,
@@ -98,6 +139,12 @@ public:
         }
     }
 
+    //-----------------------------------------------------
+    // HandleLaneInput
+    // 指定レーンへの入力を受け取り、最近傍ノーツを判定する（プレイヤー入力用）
+    // Miss ウィンドウ内に対象ノーツがなければ空打ちとしてエフェクトのみ生成し false を返す
+    // 判定が確定したノーツは MarkJudged() → ReturnToPool() でプールに戻す
+    //-----------------------------------------------------
     static bool HandleLaneInput(Scene* scene,
         Lane* laneObj,
         LaneType laneType,
@@ -164,10 +211,24 @@ public:
         return true;
     }
 
+    //=========================================================
+    // 定数
+    //=========================================================
 private:
+    // Perfect 判定のスコア加算値
     static constexpr int kPerfectPoint = 1000;
-    static constexpr int kGoodPoint = 500;
+    // Good 判定のスコア加算値
+    static constexpr int kGoodPoint    = 500;
 
+    //=========================================================
+    // 内部ヘルパー（エフェクト生成）
+    //=========================================================
+
+    //-----------------------------------------------------
+    // SpawnJudgeEffect
+    // 既存の JudgeEffect を全破棄してから新しい判定画像を画面中央下部に生成する
+    // 同時に複数の判定結果が表示されないよう、生成前に全削除する
+    //-----------------------------------------------------
     static void SpawnJudgeEffect(Scene* scene, const wchar_t* texturePath)
     {
         if (!scene) return;
@@ -182,6 +243,38 @@ private:
             const_cast<wchar_t*>(texturePath));
     }
 
+    //-----------------------------------------------------
+    // SpawnTapEffect
+    // オブジェクトプールから非アクティブな TapEffect を再利用する
+    // プールに空きがなければ新規生成する
+    //-----------------------------------------------------
+    static void SpawnTapEffect(Scene* scene, const Vector3& pos)
+    {
+        TapEffect* e = scene->FindInactive<TapEffect>(LAYER_WORLD_EFFECT);
+        if (e) { e->Reset(); e->Reinit(pos); }
+        else   { scene->AddGameObject<TapEffect>(LAYER_WORLD_EFFECT, pos); }
+    }
+
+    //-----------------------------------------------------
+    // SpawnLaneEffect
+    // オブジェクトプールから非アクティブな LaneEffect を再利用する
+    // プールに空きがなければ新規生成する
+    //-----------------------------------------------------
+    static void SpawnLaneEffect(Scene* scene, const Vector3& pos, float width, float height, const Vector3& color)
+    {
+        LaneEffect* e = scene->FindInactive<LaneEffect>(LAYER_WORLD_EFFECT);
+        if (e) { e->Reset(); e->Reinit(pos, width, height, color); }
+        else   { scene->AddGameObject<LaneEffect>(LAYER_WORLD_EFFECT, pos, width, height, color); }
+    }
+
+    //=========================================================
+    // 内部ヘルパー（変換）
+    //=========================================================
+
+    //-----------------------------------------------------
+    // ToParticle
+    // JudgeType を対応する ParticleType に変換する
+    //-----------------------------------------------------
     static ParticleType ToParticle(JudgeType jt)
     {
         switch (jt)
@@ -193,6 +286,10 @@ private:
         }
     }
 
+    //-----------------------------------------------------
+    // LaneToNote
+    // LaneType を対応する NoteType に変換する
+    //-----------------------------------------------------
     static NoteType LaneToNote(LaneType lane)
     {
         switch (lane)
@@ -205,6 +302,10 @@ private:
         }
     }
 
+    //-----------------------------------------------------
+    // LaneToIndex
+    // LaneType を NotesByLane の配列インデックスに変換する
+    //-----------------------------------------------------
     static int LaneToIndex(LaneType lane)
     {
         switch (lane)
@@ -217,6 +318,10 @@ private:
         }
     }
 
+    //-----------------------------------------------------
+    // NoteTypeToIndex
+    // NoteType を NotesByLane の配列インデックスに変換する
+    //-----------------------------------------------------
     static int NoteTypeToIndex(NoteType type)
     {
         switch (type)
@@ -227,19 +332,5 @@ private:
         case NoteType::CRASH: return 3;
         default:              return 0;
         }
-    }
-
-    static void SpawnTapEffect(Scene* scene, const Vector3& pos)
-    {
-        TapEffect* e = scene->FindInactive<TapEffect>(LAYER_WORLD_EFFECT);
-        if (e) { e->Reset(); e->Reinit(pos); }
-        else   { scene->AddGameObject<TapEffect>(LAYER_WORLD_EFFECT, pos); }
-    }
-
-    static void SpawnLaneEffect(Scene* scene, const Vector3& pos, float width, float height, const Vector3& color)
-    {
-        LaneEffect* e = scene->FindInactive<LaneEffect>(LAYER_WORLD_EFFECT);
-        if (e) { e->Reset(); e->Reinit(pos, width, height, color); }
-        else   { scene->AddGameObject<LaneEffect>(LAYER_WORLD_EFFECT, pos, width, height, color); }
     }
 };

@@ -294,7 +294,7 @@ protected:
         if (m_nameplateUi)
         {
             m_nameplateUi->SetPriority(40);
-            m_nameplateUi->SetGamma(0.8f);
+            m_nameplateUi->SetAlpha(0.8f);
         }
     }
 
@@ -315,7 +315,7 @@ protected:
         if (m_diffBadgeUi)
         {
             m_diffBadgeUi->SetPriority(40);
-            m_diffBadgeUi->SetGamma(0.8f);
+            m_diffBadgeUi->SetAlpha(0.8f);
         }
     }
 
@@ -408,7 +408,7 @@ protected:
         if (m_resultBanner && m_bannerAlpha < 1.0f)
         {
             m_bannerAlpha = std::min(1.0f, m_bannerAlpha + m_bannerFadeSpeed * FRAME_TIME);
-            m_resultBanner->SetGamma(m_bannerAlpha);
+            m_resultBanner->SetAlpha(m_bannerAlpha);
         }
     }
 
@@ -478,7 +478,7 @@ protected:
         {
             m_resultBanner->SetPriority(90);
             m_bannerAlpha = 0.0f;
-            m_resultBanner->SetGamma(m_bannerAlpha); // α=0で開始
+            m_resultBanner->SetAlpha(m_bannerAlpha); // α=0で開始
         }
     }
 

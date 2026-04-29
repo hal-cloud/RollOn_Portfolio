@@ -9,14 +9,13 @@ class Polygon2D : public GameObject
 private:
 
 protected:
-	ID3D11Buffer* m_vertexBuffer;
+	Microsoft::WRL::ComPtr<ID3D11Buffer> m_vertexBuffer;
+	Microsoft::WRL::ComPtr<ID3D11InputLayout> m_vertexLayout;
+	Microsoft::WRL::ComPtr<ID3D11VertexShader> m_vertexShader;
+	Microsoft::WRL::ComPtr<ID3D11PixelShader> m_pixelShader;
+	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> m_texture;
 
-	ID3D11InputLayout* m_vertexLayout;
-	ID3D11VertexShader* m_vertexShader;
-	ID3D11PixelShader* m_pixelShader;
-	ID3D11ShaderResourceView* m_texture;
-
-	float m_gamma = 1.0f;
+	float m_alpha = 1.0f;
 	Vector3 m_color = Vector3(1.0f, 1.0f, 1.0f);
 
 public:
@@ -24,8 +23,8 @@ public:
 	void Uninit(void) override;
 	void Update() override;
 	void Draw() override;
-	Polygon2D* SetGamma(float gamma) {
-		m_gamma = gamma; 
+	Polygon2D* SetAlpha(float alpha) {
+		m_alpha = alpha; 
 		return this;
 	}
 	Polygon2D* SetColor(Vector3 color) {

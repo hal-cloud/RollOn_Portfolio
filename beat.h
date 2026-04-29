@@ -1,37 +1,49 @@
+//=========================================================
+// beat.h
+// ビート可視化クラス
+//
+// BeatManager からビート情報を取得し、画面上のビジュアルを
+// 拍に合わせて拡縮させる。
+//=========================================================
 #pragma once
-#include "main.h"
-#include "renderer.h"
+
 #include "gameObject.h"
-#include <vector>
-#include <string>
-#include <chrono>
+#include <cstdint>
 
 class Beat : public GameObject
 {
 private:
-	static constexpr float kMinScale = 0.1f;
-	static constexpr float kMaxScale = 2.0f;
-	static constexpr float kMaxDeltaTime = 0.1f;
+    //-----------------------------------------------------
+    // スケールの上下限
+    // 拡縮アニメーションがこの範囲を超えないようにクランプする
+    //-----------------------------------------------------
+    static constexpr float kMinScale = 0.1f;
+    static constexpr float kMaxScale = 2.0f;
 
-	int m_bpm = 0;
-	float m_timer = 0;
-	float m_interval = 0;
+    //-----------------------------------------------------
+    // ビジュアル
+    // BeatManager のビート番号が変化したタイミングで拡大し、
+    // 指数減衰で元のスケールに戻す
+    //-----------------------------------------------------
+    class Polygon2D* m_beatVisual = nullptr;
 
-	std::chrono::time_point<std::chrono::steady_clock> m_lastTime;
+    float m_currentScale = 1.0f; // 現在のスケール（毎フレーム補間）
+    float m_targetScale  = 1.0f; // 収束先のスケール（通常 1.0f）
+    float m_expandScale  = 1.5f; // ビート時に瞬間的に設定する拡大スケール
+    float m_shrinkSpeed  = 8.0f; // 収縮速度（値が大きいほど速く戻る）
 
-	class Polygon2D* m_beatVisual = nullptr;
+    //-----------------------------------------------------
+    // ビート検出
+    // 前回のビートインデックスを保持し、変化を検知する
+    //-----------------------------------------------------
+    uint64_t m_lastBeatIndex = UINT64_MAX;
 
-	float m_currentScale = 1.0f;
-	float m_targetScale = 1.0f;
-	float m_expandScale = 1.5f;
-	float m_shrinkSpeed = 8.0f;
 public:
-
-	void Init(int bpm);
-	void Uninit() override;
-	void Update() override;
-	void Draw() override;
-	float GetElapsedFromLastBeat() const;
-	float GetTimeToNextBeat() const;
-	std::chrono::steady_clock::time_point GetLastBeatTime() const { return m_lastTime; }
+    //-----------------------------------------------------
+    // ライフサイクル
+    // Init に BPM を渡し、BeatManager へ即時反映する
+    //-----------------------------------------------------
+    void Init(int bpm);
+    void Uninit() override;
+    void Update() override;
 };

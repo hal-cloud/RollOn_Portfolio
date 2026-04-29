@@ -99,9 +99,9 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 
 	timeEndPeriod(1);
 
-	UnregisterClass(g_className, wcex.hInstance);
-
 	Manager::Uninit();
+
+	UnregisterClass(g_className, wcex.hInstance);
 
 	CoUninitialize();
 
